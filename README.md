@@ -1,3 +1,7 @@
+# Assignment-02
+
+## Instructions
+
 You are to implement the dynamic programming algorithm we discussed in class for the optimal binary search tree problem.
 
  
