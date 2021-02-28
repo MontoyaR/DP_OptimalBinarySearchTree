@@ -20,7 +20,8 @@ public class Main {
     int[] keys = generateAscendingRandomKeys(amount);
 
     // Stores the value of the keys array as an text file
-    writeInteger("src/Input/Keys.txt", keys);
+    // TODO: Edit file destination to prevent text override
+    writeInteger("src/Input/10000.random.sorted.keys.txt", keys);
     System.out.println("\nAscending Random Keys:");
     for (int i = 0; i < keys.length; i++) {
       System.out.println(keys[i]);
@@ -31,9 +32,6 @@ public class Main {
 
     int n = probability.length;
 
-    //Filter probability in ascending order then split
-    //Arrays.sort(probability);
-
     // Split the array containing the probability to create a Pi(Success) and Qi(Failure) array
     double[] tempArray = {0};
     double[] Qi = Arrays.copyOfRange(probability, 0, (n + 1) / 2);
@@ -41,14 +39,16 @@ public class Main {
     double[] Pi = concat(tempArray, P);
 
     // Probability of Success
-    writeDouble("src/Input/Pi_10keys.txt", Pi);
+    // TODO: Edit file destination to prevent text override
+    writeDouble("src/Input/Pi.10000.keys.txt", Pi);
     System.out.println("\nPi[]:");
     for (int i = 0; i < Pi.length; i++) {
       System.out.println(Pi[i]);
     }
 
     //Probability of Failure
-    writeDouble("src/Input/Qi_10keys.txt", Qi);
+    // TODO: Edit file destination to prevent text override
+    writeDouble("src/Input/Qi.10000.keys.txt", Qi);
     System.out.println("\nQi[]:");
     for (int i = 0; i < Qi.length; i++) {
       System.out.println(Qi[i]);
@@ -56,7 +56,7 @@ public class Main {
 
     System.out.println();
 
-    double[][] cost = new double[amount + 1 + 1][amount + 1];
+    double[][] cost = new double[amount + 2][amount + 1];
 
     // Start time for Time Complexity
     long startTime = System.nanoTime();
@@ -69,13 +69,23 @@ public class Main {
     // Runtime for Optimal Binary Search Tree
     long runtime = endTime - startTime;
 
-    printOBST(root, 1, amount, amount);
+    writeOBST(root, 1, amount, amount);
 
     double runtimeInSeconds = (double) runtime / 1_000_000_000;
-    System.out.println("\nMerge Sort Algorithm runtime: " + runtimeInSeconds + " seconds");
+    System.out.println("\nOptimal Binary Search Tree runtime: " + runtimeInSeconds + " seconds");
 
     System.out.println(
         "\nA search cost of this optimal BST is " + cost[1][amount] + "\n");
+  }
+
+  public static double[] concat  (double[]a,double[]b){
+    if (a == null) return b;
+    if (b == null) return a;
+    double[] r = new double[a.length+b.length];
+    System.arraycopy(a, 0, r, 0, a.length);
+    System.arraycopy(b, 0, r, a.length, b.length);
+    return r;
+
   }
 
   public static int[] generateAscendingRandomKeys(int amount) {
@@ -88,6 +98,23 @@ public class Main {
 
     Arrays.sort(Numbers);
     return Numbers;
+  }
+
+  public static double[] generateRandomProbability(int amount, double finalSum) {
+    Random random = new Random();
+
+    double randomNum[] = new double[amount];
+    double sum = 0;
+
+    for (int i = 0; i < randomNum.length; i++) {
+      randomNum[i] = random.nextDouble();
+      sum += randomNum[i];
+    }
+
+    for (int i = 0; i < randomNum.length; i++) {
+      randomNum[i] = (randomNum[i] / sum) * finalSum;
+    }
+    return randomNum;
   }
 
   public static void writeInteger(String filename, int[] x) throws IOException {
@@ -127,33 +154,47 @@ public class Main {
     writer.close();
   }
 
-  public static double[] concat  (double[]a,double[]b){
-    if (a == null) return b;
-    if (b == null) return a;
-    double[] r = new double[a.length+b.length];
-    System.arraycopy(a, 0, r, 0, a.length);
-    System.arraycopy(b, 0, r, a.length, b.length);
-    return r;
+  public static void writeOBST(double[][] root, int min, int max,
+      int numberOfKeys) throws IOException {
 
-  }
+    // TODO: Edit file destination to prevent text override
+    BufferedWriter writer = new BufferedWriter
+        (new FileWriter("src/Optimal Binary Search Tree/OBST.10000.keys.txt", true));
 
-  public static double[] generateRandomProbability(int amount, double finalSum) {
-    Random random = new Random();
+    int parent = (int) root[min][max];
 
-    double randomNum[] = new double[amount];
-    double sum = 0;
-
-    for (int i = 0; i < randomNum.length; i++) {
-      randomNum[i] = random.nextDouble();
-      sum += randomNum[i];
+    // Construct the root of optimal BST
+    if (max == numberOfKeys && min == 1) {
+      System.out.println("K" + parent + " is the root.");
+      writer.write("K" + parent + " is the root.");
+      writer.newLine();
     }
 
-    for (int i = 0; i < randomNum.length; i++) {
-      randomNum[i] = (randomNum[i] / sum) * finalSum;
-      // 3 Decimal places, easier to read but does not always add to 1
-      //randomNum[i] = Math.round( (randomNum[i]  / sum * finalSum) * 1000.0 ) / 1000.0 ;
+    // Construct left sub-tree
+    if (min <= parent - 1) {
+      System.out.println("K" + (int) root[min][parent - 1] + " is the left child of K" + parent);
+      writer.write("K" + (int) root[min][parent - 1] + " is the left child of K" + parent);
+      writer.newLine();
+      writeOBST(root, min, parent - 1, numberOfKeys);
+    } else {
+      System.out.println("D" + (parent - 1) + " is the left child of K" + parent);
+      writer.write("D" + (parent - 1) + " is the left child of K" + parent);
+      writer.newLine();
     }
-    return randomNum;
+
+    // Construct right sub-tree
+    if (max >= parent + 1) {
+      System.out.println("K" + (int) root[parent + 1][max] + " is the right child of K" + parent);
+      writer.write("K" + (int) root[parent + 1][max] + " is the right child of K" + parent);
+      writer.newLine();
+      writeOBST(root, parent + 1, max, numberOfKeys);
+    } else {
+      System.out.println("D" + parent + " is the right child of K" + parent);
+      writer.write("D" + parent + " is the right child of K" + parent);
+      writer.newLine();
+    }
+    writer.flush();
+    writer.close();
   }
 
   public static double[][] OptimalBST(double[] p, double q[], int numberOfKeys, double[][] cost)
@@ -162,9 +203,12 @@ public class Main {
     double[][] w = new double[n + 2][n + 1];
     double[][] root = new double[n + 1][n + 1];
 
+    // Initialization of Cost
     for (int i = 0; i <= n; i++) {
       cost[i + 1][i] = q[i];
     }
+
+    // Initialization of Weight
     for (int i = 0; i <= n; i++) {
       w[i + 1][i] = q[i];
     }
@@ -173,51 +217,23 @@ public class Main {
       for (int i = 1; i <= n - k + 1; i++) {
         int j = i + k - 1;
         cost[i][j] = Integer.MAX_VALUE;
+        // Calculate Weight
         w[i][j] = w[i][j - 1] + p[j] + q[j];
         for (int r = i; r <= j; r++) {
-          double t = cost[i][r - 1] + cost[r + 1][j] + w[i][j];
-          if (t < cost[i][j]) {
-            cost[i][j] = t;
+          // Recursive Formulation
+          double temp = cost[i][r - 1] + cost[r + 1][j] + w[i][j];
+          // The new temp will replace the current cost[i][j] only if it is a lower value.
+          if (temp < cost[i][j]) {
+            cost[i][j] = temp;
             root[i][j] = r;
           }
         }
       }
     }
-    writeMatrix("src/Matrices/Root_10keys.txt", root);
-    writeMatrix("src/Matrices/Cost_10keys.txt", cost);
-    writeMatrix("src/Matrices/Weight_10keys.txt", w);
+    // TODO: Edit file destination to prevent text override
+    writeMatrix("src/Matrices/Root.10000.keys.txt", root);
+    writeMatrix("src/Matrices/Cost.10000.keys.txt", cost);
+    writeMatrix("src/Matrices/Weight.10000.keys.txt", w);
     return root;
   }
-
-  public static void printOBST(double[][] root, int min, int max,
-      int numberOfKeys) {
-    int parent = (int) root[min][max];
-
-    // Construct the root of optimal BST
-    if (max == numberOfKeys && min == 1) {
-      System.out.println("K" + parent + " is the root.");
-    }
-
-    // Construct left sub-tree
-    if (min <= parent - 1) {
-      System.out.println("K" + (int) root[min][parent - 1] + " is the left child of K" + parent);
-      printOBST(root, min, parent - 1, numberOfKeys);
-    } else {
-      System.out.println("D" + (parent - 1) + " is the left child of K" + parent);
-    }
-
-    // Construct right sub-tree
-    if (max >= parent + 1) {
-      System.out.println("K" + (int) root[parent + 1][max] + " is the right child of K" + parent);
-      printOBST(root, parent + 1, max, numberOfKeys);
-    } else {
-      System.out.println("D" + parent + " is the right child of K" + parent);
-    }
-  }
-
-
-
-
-
-
 }
