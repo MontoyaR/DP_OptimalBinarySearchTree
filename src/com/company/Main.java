@@ -1,10 +1,8 @@
 package com.company;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -28,20 +26,19 @@ public class Main {
       System.out.println(keys[i]);
     }
 
-    //******************************************************************************************
     // Array containing random probability that sum to 1
     double[] probability = generateRandomProbability((amount * 2) + 1, 1);
 
     int n = probability.length;
 
-    //TODO: Filter probability in ascending order then split
-    Arrays.sort(probability);
+    //Filter probability in ascending order then split
+    //Arrays.sort(probability);
 
     // Split the array containing the probability to create a Pi(Success) and Qi(Failure) array
-    double[] temp = {0};
+    double[] tempArray = {0};
     double[] Qi = Arrays.copyOfRange(probability, 0, (n + 1) / 2);
     double[] P = Arrays.copyOfRange(probability, (n + 1) / 2, n);
-    double[] Pi = concat(temp, P);
+    double[] Pi = concat(tempArray, P);
 
     // Probability of Success
     writeDouble("src/Input/Pi_10keys.txt", Pi);
@@ -56,7 +53,8 @@ public class Main {
     for (int i = 0; i < Qi.length; i++) {
       System.out.println(Qi[i]);
     }
-    //******************************************************************************************
+
+    System.out.println();
 
     double[][] cost = new double[amount + 1 + 1][amount + 1];
 
@@ -66,14 +64,18 @@ public class Main {
     // OBST Algorithm
     double[][] root = OptimalBST(Pi, Qi, amount, cost);
 
+    long endTime = System.nanoTime();
 
+    // Runtime for Optimal Binary Search Tree
+    long runtime = endTime - startTime;
 
+    printOBST(root, 1, amount, amount);
+
+    double runtimeInSeconds = (double) runtime / 1_000_000_000;
+    System.out.println("\nMerge Sort Algorithm runtime: " + runtimeInSeconds + " seconds");
 
     System.out.println(
         "\nA search cost of this optimal BST is " + cost[1][amount] + "\n");
-
-    displayOBST(root, 1, amount, amount);
-
   }
 
   public static int[] generateAscendingRandomKeys(int amount) {
@@ -157,7 +159,7 @@ public class Main {
   public static double[][] OptimalBST(double[] p, double q[], int numberOfKeys, double[][] cost)
       throws IOException {
     int n = numberOfKeys;
-    double[][] w = new double[n + 1 + 1][n + 1];
+    double[][] w = new double[n + 2][n + 1];
     double[][] root = new double[n + 1][n + 1];
 
     for (int i = 0; i <= n; i++) {
@@ -187,30 +189,35 @@ public class Main {
     return root;
   }
 
-  public static void displayOBST(double[][] root, int lowerKey, int higherKey,
+  public static void printOBST(double[][] root, int min, int max,
       int numberOfKeys) {
-    int parent = (int) root[lowerKey][higherKey];
+    int parent = (int) root[min][max];
 
     // Construct the root of optimal BST
-    if (higherKey == numberOfKeys && lowerKey == 1) {
+    if (max == numberOfKeys && min == 1) {
       System.out.println("K" + parent + " is the root.");
     }
 
     // Construct left sub-tree
-    if (lowerKey <= parent - 1) {
-      System.out.println("K" + root[lowerKey][parent - 1] + " is the left child of K" + parent);
-      displayOBST(root, lowerKey, parent - 1, numberOfKeys);
+    if (min <= parent - 1) {
+      System.out.println("K" + (int) root[min][parent - 1] + " is the left child of K" + parent);
+      printOBST(root, min, parent - 1, numberOfKeys);
     } else {
       System.out.println("D" + (parent - 1) + " is the left child of K" + parent);
     }
 
     // Construct right sub-tree
-    if (higherKey >= parent + 1) {
-      System.out.println("K" + root[parent + 1][higherKey] + " is the right child of K" + parent);
-      displayOBST(root, parent + 1, higherKey, numberOfKeys);
+    if (max >= parent + 1) {
+      System.out.println("K" + (int) root[parent + 1][max] + " is the right child of K" + parent);
+      printOBST(root, parent + 1, max, numberOfKeys);
     } else {
       System.out.println("D" + parent + " is the right child of K" + parent);
     }
   }
+
+
+
+
+
 
 }
