@@ -2,7 +2,7 @@
 
 ## Instructions
 
--   You are to implement the dynamic programming algorithm we discussed in class for the optimal binary search tree problem.
+You are to implement the dynamic programming algorithm we discussed in class for the optimal binary search tree problem.
 -   You must provide a feature to store the three matrices e, w, and r, and also the optimal binary search tree in files. Use appropriate file names.  No GUI is required for displaying the tree.  A textual structure (display) is sufficient.
 -   You may use the algorithms provided in the class (and in Chapter 15); however, you must not reuse the implementations from other sources. The implementation must be yours. You cannot use code written by others, including seeking free and/or paid services from others (e.g., Course Hero). It is an individual assignment, and no group work is expected or will be accepted.
 -   There is no specific programming-language requirement for this assignment.
