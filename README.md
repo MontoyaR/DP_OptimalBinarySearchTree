@@ -26,3 +26,4 @@ Save the input and output files for each configuration.
 
 ![](https://github.com/MontoyaR/DP_OptimalBinarySearchTree/blob/master/src/Optimal%20Binary%20Search%20Tree/Optimal%20Binary%20Search%20Tree.png)
 
+## Comparison with theoretical analysis
