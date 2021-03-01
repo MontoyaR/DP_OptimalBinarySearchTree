@@ -22,6 +22,6 @@ Save the input and output files for each configuration.
 | 4   | 2148       | OBST.10000.keys.txt              |
 | 5   |   N/A      |N/A                               |
 
-*The run for 100,000 keys was unable to complete because it took a long time.*
+*The run for 100,000 keys was unable to complete because it took a long time. The Root, Weight, and Cost Matrices for the 10,000 keys were unable to be uploaded to Github due to Github's 100MB commit limit.*
 
 
