@@ -1,0 +1,21 @@
+D1 is the left child of K2
+D2 is the right child of K2
+D0 is the left child of K1
+K2 is the right child of K1
+D3 is the left child of K4
+D4 is the right child of K4
+K1 is the left child of K3
+K4 is the right child of K3
+D5 is the left child of K6
+D6 is the right child of K6
+D7 is the left child of K8
+D8 is the right child of K8
+K6 is the left child of K7
+K8 is the right child of K7
+D9 is the left child of K10
+D10 is the right child of K10
+K7 is the left child of K9
+K10 is the right child of K9
+K5 is the root.
+K3 is the left child of K5
+K9 is the right child of K5
