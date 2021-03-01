@@ -13,7 +13,7 @@ Save the input and output files for each configuration.
 -   If you run out of resources for a specific configuration (e.g., out of memory for 1,000,000 keys), it should be noted and submitted.
 -   Provide a README file explaining the structure of your implementation, decision designs, and how to execute your program.
 
-## Optimal Binary Search Tree Performance
+## Optimal Binary Search Tree Performance Chart
 | Run | Time (sec) | File                             |
 |-----|------------|----------------------------------|
 | 1   | 0.0115226  | OBST.10.keys.txt                 |
