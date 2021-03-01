@@ -14,6 +14,8 @@ Save the input and output files for each configuration.
 -   Provide a README file explaining the structure of your implementation, decision designs, and how to execute your program.
 
 ## Optimal Binary Search Tree Performance Chart
+*The run for 100,000 keys was unable to complete because it took a long time. The Root, Weight, and Cost Matrices for the 10,000 keys were unable to be uploaded to Github due to Github's 100MB commit limit.*
+
 | Run | Time (sec) | File                             |
 |-----|------------|----------------------------------|
 | 1   | 0.0115226  | OBST.10.keys.txt                 |
@@ -21,8 +23,6 @@ Save the input and output files for each configuration.
 | 3   | 1.3347323  | OBST.1000.keys.txt               |
 | 4   | 2148       | OBST.10000.keys.txt              |
 | 5   |   N/A      |N/A                               |
-
-*The run for 100,000 keys was unable to complete because it took a long time. The Root, Weight, and Cost Matrices for the 10,000 keys were unable to be uploaded to Github due to Github's 100MB commit limit.*
 
 ![](https://github.com/MontoyaR/DP_OptimalBinarySearchTree/blob/master/src/Optimal%20Binary%20Search%20Tree/Optimal%20Binary%20Search%20Tree.png)
 
