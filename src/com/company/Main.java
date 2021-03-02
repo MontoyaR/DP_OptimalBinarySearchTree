@@ -21,7 +21,7 @@ public class Main {
 
     // Stores the value of the keys array as an text file
     // TODO: Edit file destination to prevent text override
-    writeInteger("src/Input/10000.random.sorted.keys.txt", keys);
+    writeInteger("src/Input/OBST.10000.keys.txt", keys);
     System.out.println("\nAscending Random Keys:");
     for (int i = 0; i < keys.length; i++) {
       System.out.println(keys[i]);
@@ -58,21 +58,10 @@ public class Main {
 
     double[][] cost = new double[amount + 2][amount + 1];
 
-    // Start time for Time Complexity
-    long startTime = System.nanoTime();
-
     // OBST Algorithm
     double[][] root = OptimalBST(Pi, Qi, amount, cost);
 
-    long endTime = System.nanoTime();
-
-    // Runtime for Optimal Binary Search Tree
-    long runtime = endTime - startTime;
-
     writeOBST(root, 1, amount, amount);
-
-    double runtimeInSeconds = (double) runtime / 1_000_000_000;
-    System.out.println("\nOptimal Binary Search Tree runtime: " + runtimeInSeconds + " seconds");
 
     System.out.println(
         "\nA search cost of this optimal BST is " + cost[1][amount] + "\n");
@@ -123,6 +112,16 @@ public class Main {
       writer.write(Integer.toString(x[i]));
       writer.newLine();
     }
+    writer.flush();
+    writer.close();
+  }
+
+  public static void writeRuntime(String filename, double runtime) throws IOException {
+    BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+
+    writer.write(Double.toString(runtime));
+    writer.newLine();
+
     writer.flush();
     writer.close();
   }
@@ -199,6 +198,8 @@ public class Main {
 
   public static double[][] OptimalBST(double[] p, double q[], int numberOfKeys, double[][] cost)
       throws IOException {
+    // Start time for Time Complexity
+    long startTime = System.nanoTime();
     int n = numberOfKeys;
     double[][] w = new double[n + 2][n + 1];
     double[][] root = new double[n + 1][n + 1];
@@ -230,6 +231,16 @@ public class Main {
         }
       }
     }
+    // End time for Time Complexity
+    long endTime = System.nanoTime();
+
+    // Runtime for Optimal Binary Search Tree
+    long runtime = endTime - startTime;
+
+    double runtimeInSeconds = (double) runtime / 1_000_000_000;
+    writeRuntime("src/Input/runtime.txt",runtimeInSeconds);
+    System.out.println("\nTest Optimal Binary Search Tree runtime: " + runtimeInSeconds + " seconds. \n");
+
     // TODO: Edit file destination to prevent text override
     writeMatrix("src/Matrices/Root.10000.keys.txt", root);
     writeMatrix("src/Matrices/Cost.10000.keys.txt", cost);
