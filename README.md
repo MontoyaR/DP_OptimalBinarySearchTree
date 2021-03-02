@@ -27,3 +27,4 @@ Save the input and output files for each configuration.
 ![](https://github.com/MontoyaR/DP_OptimalBinarySearchTree/blob/master/src/Optimal%20Binary%20Search%20Tree/Optimal%20Binary%20Search%20Tree.png)
 
 ## Comparison with theoretical analysis
+The Big O notation for Optimal Binary Search Tree using dynamic programming is O(n³). This seems to be accurate because from just 1,000 keys to 10,000 keys took 35 minutes and the previous run of 1,000 keys only took 1.33 seconds to complete. Increasing the n any further will just be exponential and time would increase as such.
