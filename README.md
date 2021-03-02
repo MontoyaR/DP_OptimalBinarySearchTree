@@ -18,10 +18,10 @@ Save the input and output files for each configuration.
 
 | Run | Time (sec) | File                             |
 |-----|------------|----------------------------------|
-| 1   | 0.0115226  | OBST.10.keys.txt                 |
-| 2   | 0.0436667  | OBST.100.keys.txt                |
-| 3   | 1.3347323  | OBST.1000.keys.txt               |
-| 4   | 2148       | OBST.10000.keys.txt              |
+| 1   | 2.06E-5  | OBST.10.keys.txt                 |
+| 2   | 0.004712  | OBST.100.keys.txt                |
+| 3   | 1.0064683  | OBST.1000.keys.txt               |
+| 4   | 1924.2108528      | OBST.10000.keys.txt              |
 | 5   |   N/A      |N/A                               |
 
 ![](https://github.com/MontoyaR/DP_OptimalBinarySearchTree/blob/master/src/Optimal%20Binary%20Search%20Tree/Optimal%20Binary%20Search%20Tree.png)
